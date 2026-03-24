@@ -768,7 +768,7 @@ function openORCareMenu(p, sourceLabel) {
     const meds = Object.values(MED_BY_DX);
     openMenu(
       source + " Medicate " + p.name,
-      "Choose medication",
+      "Symptoms: " + p.complaint + " · " + urgencyIndicator(p),
       meds.map((med) => ({
         label: med,
         action: () => {
@@ -956,7 +956,7 @@ function performMonitorAction(patientId) {
     const meds = Object.values(MED_BY_DX);
     openMenu(
       "Monitor Medicate " + p.name,
-      "Choose medication",
+      "Symptoms: " + p.complaint + " · " + urgencyIndicator(p),
       meds.map((med) => ({
         label: med,
         action: () => {
@@ -1262,7 +1262,7 @@ function pharmacyFlow() {
             }
             openMenu(
               "Medicate " + p.name,
-              "Choose the best medication",
+              "Symptoms: " + p.complaint + " · " + urgencyIndicator(p),
               meds.map((med) => ({
                 label: med,
                 action: () => {
