@@ -1,0 +1,11 @@
+{
+  "name": "dr-robby",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dr. Robby retro ER management game",
+  "scripts": {
+    "build": "node scripts/build-check.js",
+    "start": "python3 -m http.server 4173",
+    "start:azure": "node server.js"
+  }
+}

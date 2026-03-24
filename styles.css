@@ -1,0 +1,404 @@
+:root {
+  color-scheme: dark;
+  --bg: #10141f;
+  --panel: #1f2740;
+  --accent: #8fd3ff;
+  --good: #67f29f;
+  --warn: #ffd166;
+  --bad: #ff5d73;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at top, #1a2550, var(--bg));
+  font-family: "Courier New", Courier, monospace;
+  color: #ecf2ff;
+}
+
+#game-shell {
+  width: min(1080px, 98vw);
+  display: grid;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.hud {
+  background: var(--panel);
+  border: 2px solid #d9ecff;
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+}
+
+.hud h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.help-btn {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  font-size: 1.1rem;
+  line-height: 1;
+  font-weight: 700;
+  border-radius: 6px;
+  background: #365f9f;
+  border: 3px solid #a8d4ff;
+  box-shadow: 0 4px 0 #203a63;
+}
+
+.help-fab {
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  z-index: 30;
+}
+
+.hud-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+canvas {
+  image-rendering: pixelated;
+  border: 4px solid #dae9ff;
+  border-radius: 4px;
+  background: #182044;
+}
+
+.play-area {
+  display: grid;
+  grid-template-columns: 640px minmax(330px, 1fr);
+  gap: 0.7rem;
+  align-items: start;
+}
+
+.patient-monitor {
+  border: 2px solid #d9ecff;
+  border-radius: 6px;
+  background: rgba(24, 34, 63, 0.95);
+  height: 488px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.patient-monitor h2 {
+  margin: 0;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(214, 232, 255, 0.35);
+}
+
+.monitor-list {
+  padding: 0.25rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: block;
+  flex: 1;
+  min-height: 0;
+}
+
+.monitor-card {
+  border: 1px solid rgba(180, 208, 255, 0.5);
+  border-radius: 4px;
+  padding: 0.2rem 0.25rem;
+  background: rgba(10, 18, 38, 0.62);
+  font-size: 0.69rem;
+  display: grid;
+  gap: 2px;
+  margin-bottom: 0.22rem;
+  contain: content;
+}
+
+.monitor-card:last-child {
+  margin-bottom: 0;
+}
+
+.monitor-card.critical {
+  border-color: #ff8ea0;
+  box-shadow: 0 0 0 1px rgba(255, 120, 146, 0.25) inset;
+}
+
+.monitor-card.emergency {
+  border-color: #ff5d73;
+  box-shadow: 0 0 0 1px rgba(255, 93, 115, 0.35) inset, 0 0 6px rgba(255, 93, 115, 0.4);
+}
+
+.monitor-card.active {
+  outline: 2px solid #8fd3ff;
+  outline-offset: 0;
+}
+
+.monitor-head,
+.monitor-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) auto auto;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.monitor-name {
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.monitor-station,
+.monitor-sev,
+.monitor-meta {
+  color: #cfe4ff;
+}
+
+.monitor-sev {
+  font-weight: 700;
+}
+
+.monitor-meta {
+  color: #aecaef;
+}
+
+.monitor-meta > div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.monitor-mini-bars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.monitor-action-btn {
+  width: 100%;
+  padding: 0.18rem 0.26rem;
+  font-size: 0.66rem;
+  border-width: 1px;
+  background: #2b4f87;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.monitor-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: #1b2747;
+  overflow: hidden;
+}
+
+.monitor-bar span {
+  display: block;
+  height: 100%;
+}
+
+.monitor-empty {
+  opacity: 0.75;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 980px) {
+  .play-area {
+    grid-template-columns: 1fr;
+  }
+
+  .patient-monitor {
+    min-height: 220px;
+    max-height: 260px;
+  }
+}
+
+.speech,
+.menu,
+.event-log {
+  border: 2px solid #d9ecff;
+  border-radius: 6px;
+  background: rgba(24, 34, 63, 0.95);
+}
+
+.speech {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 4.3rem;
+  padding: 0.7rem;
+  min-height: 60px;
+}
+
+.outcome-banner {
+  position: absolute;
+  top: 5.3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 320px;
+  max-width: min(640px, 92vw);
+  text-align: center;
+  padding: 0.55rem 0.8rem;
+  border: 2px solid #d9ecff;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  z-index: 35;
+  pointer-events: none;
+}
+
+.outcome-banner.good {
+  background: rgba(20, 84, 54, 0.92);
+  color: #d7ffea;
+  border-color: #86e5b0;
+}
+
+.outcome-banner.bad {
+  background: rgba(108, 24, 44, 0.92);
+  color: #ffe2e8;
+  border-color: #ff95ab;
+}
+
+.menu {
+  position: absolute;
+  right: 1rem;
+  top: 5.8rem;
+  width: min(340px, 85vw);
+  padding: 0.8rem;
+}
+
+.menu h2 {
+  margin: 0 0 0.4rem;
+}
+
+.menu p {
+  margin: 0 0 0.5rem;
+  font-size: 0.88rem;
+  color: #cbe0ff;
+}
+
+#menu-options {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.menu-option-active {
+  outline: 2px solid #8fd3ff;
+  outline-offset: 1px;
+  box-shadow: 0 0 0 2px rgba(143, 211, 255, 0.22) inset;
+}
+
+button {
+  border: 2px solid #cce2ff;
+  border-radius: 4px;
+  padding: 0.45rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: #ecf3ff;
+  background: #2e4f82;
+}
+
+button:hover {
+  filter: brightness(1.12);
+}
+
+button.secondary {
+  background: #36415d;
+}
+
+.event-log {
+  max-height: 120px;
+  overflow: auto;
+  padding: 0.6rem;
+  font-size: 0.8rem;
+}
+
+.event-line {
+  margin-bottom: 0.3rem;
+}
+
+.event-line.good {
+  color: var(--good);
+}
+
+.event-line.warn {
+  color: var(--warn);
+}
+
+.event-line.bad {
+  color: var(--bad);
+}
+
+.controls {
+  font-size: 0.86rem;
+  color: #d1e4ff;
+}
+
+.hidden {
+  display: none;
+}
+
+.tutorial-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 12, 22, 0.78);
+  display: grid;
+  place-items: center;
+  z-index: 40;
+}
+
+.tutorial-overlay.hidden {
+  display: none;
+}
+
+.tutorial-modal {
+  width: min(680px, 92vw);
+  max-height: 90vh;
+  overflow: auto;
+  background: #1c2745;
+  border: 3px solid #d9ecff;
+  border-radius: 8px;
+  padding: 0.85rem;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+}
+
+.tutorial-modal h2 {
+  margin: 0 0 0.6rem;
+}
+
+#tutorial-art {
+  display: block;
+  width: 100%;
+  max-width: 336px;
+  margin: 0 auto 0.8rem;
+  image-rendering: pixelated;
+  border: 2px solid #d5e7ff;
+  background: #182044;
+}
+
+.tutorial-modal ol {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.tutorial-modal li {
+  margin: 0.35rem 0;
+}
+
+.tutorial-actions {
+  margin-top: 0.8rem;
+  display: flex;
+  gap: 0.45rem;
+  justify-content: flex-end;
+}

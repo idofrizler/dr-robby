@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dr. Robby</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="game-shell">
+      <header class="hud">
+        <h1>Dr. Robby: ER Shift</h1>
+        <div class="hud-grid">
+          <div>Shift Time: <span id="time-left">07:00</span></div>
+          <div>Score: <span id="score">0</span></div>
+          <div>Patients Seen: <span id="patients-seen">0</span></div>
+          <div>Saved: <span id="saved">0</span></div>
+          <div>Lost: <span id="lost">0</span></div>
+          <div>Avg Satisfaction: <span id="avg-sat">100</span>%</div>
+          <div>Supplies: <span id="supplies">6</span></div>
+          <div>Critical Queue: <span id="critical-count">0</span></div>
+          <div>Combo: <span id="combo">0</span></div>
+        </div>
+      </header>
+      <button id="help-btn" class="help-btn help-fab" aria-label="Open tutorial">?</button>
+
+      <div class="play-area">
+        <canvas id="game" width="640" height="480" aria-label="Dr. Robby game"></canvas>
+        <aside id="patient-monitor" class="patient-monitor" aria-label="Live patient monitor">
+          <h2>ER Monitor</h2>
+          <div id="monitor-list" class="monitor-list"></div>
+        </aside>
+      </div>
+
+      <section id="speech" class="speech hidden"></section>
+      <section id="outcome-banner" class="outcome-banner hidden" aria-live="polite"></section>
+
+      <section id="menu" class="menu hidden">
+        <h2 id="menu-title">Interaction</h2>
+        <p id="menu-subtitle"></p>
+        <div id="menu-options"></div>
+        <button id="menu-close" class="secondary">Back</button>
+      </section>
+
+      <section id="event-log" class="event-log"></section>
+
+      <section id="game-over" class="menu hidden">
+        <h2>Shift Complete</h2>
+        <p id="summary"></p>
+        <button id="restart">Play Again</button>
+      </section>
+
+      <section id="tutorial" class="tutorial-overlay hidden">
+        <div class="tutorial-modal">
+          <h2>How to Play Dr. Robby</h2>
+          <canvas id="tutorial-art" width="336" height="112" aria-label="Tutorial pixel art"></canvas>
+          <ol>
+            <li><strong>Move:</strong> Arrow keys or WASD to walk to stations.</li>
+            <li><strong>Triage with context:</strong> Immediate/Emergent clues should move first, but you have time to think.</li>
+            <li><strong>Flow every case:</strong> Exam -> Stabilize -> Medication or Procedure -> Disposition.</li>
+            <li><strong>Codes are earned:</strong> Severe neglected patients can crash if delayed, then must go straight to OR.</li>
+            <li><strong>Disposition matters:</strong> Discharge only complete/stable cases; admit those needing ongoing care.</li>
+            <li><strong>Wrong destination hurts:</strong> Unsafe discharge bounces back; unnecessary admission gets rejected.</li>
+          </ol>
+          <div class="tutorial-actions">
+            <button id="tutorial-start">Start Shift</button>
+            <button id="tutorial-close" class="secondary">Close</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="controls">Move: Arrow Keys / WASD · Interact: Space / Enter · Monitor Mode: M (then Up/Down + Space/Enter) · Close: Esc</footer>
+    </div>
+
+    <script src="main.js?v=10"></script>
+  </body>
+</html>
